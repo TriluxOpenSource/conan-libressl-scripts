@@ -69,7 +69,7 @@ script:
 
   # macOS Builds
   - if [ "$TARGET_PLATFORM" == "macos" ]; then
-      export MACOS_SDK_VERSION=$(xcodebuild -showsdks | grep macosx | awk '{print $4}' | sed 's/[^0-9,\.]*//g');
+      export MACOS_SDK_VERSION=$(xcodebuild -showsdks | grep " macosx" | awk '{print $4}' | sed 's/[^0-9,\.]*//g');
       echo "macOS SDK ${MACOS_SDK_VERSION}";
       conan create . libressl/${LIBRARY_VERSION}@${CONAN_USER}/${CONAN_CHANNEL} -s os=Macos -s os.version=${MACOS_SDK_VERSION} -s arch=${TARGET_ARCH} -s build_type=${TARGET_BUILD_TYPE} -o shared=False;
     fi
@@ -100,7 +100,7 @@ matrix:
 
     # iOS - Release
     - os: osx
-      osx_image: xcode10.3
+      osx_image: xcode11
       compiler: clang
       env:
         - TARGET_PLATFORM=ios
@@ -109,7 +109,7 @@ matrix:
 
     # iOS - Debug
     - os: osx
-      osx_image: xcode10.3
+      osx_image: xcode11
       compiler: clang
       env:
         - TARGET_PLATFORM=ios
@@ -118,7 +118,7 @@ matrix:
 
     # iOS - Simulator
     - os: osx
-      osx_image: xcode10.3
+      osx_image: xcode11
       compiler: clang
       env:
         - TARGET_PLATFORM=ios
@@ -127,7 +127,7 @@ matrix:
 
     # macOS - Release
     - os: osx
-      osx_image: xcode10.3
+      osx_image: xcode11
       compiler: clang
       env:
         - TARGET_PLATFORM=macos
@@ -136,7 +136,7 @@ matrix:
 
     # macOS - Debug
     - os: osx
-      osx_image: xcode10.3
+      osx_image: xcode11
       compiler: clang
       env:
         - TARGET_PLATFORM=macos
