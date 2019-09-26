@@ -57,7 +57,11 @@ class LibreSSLConan(ConanFile):
         tools.replace_in_file("%s/libressl-%s/CMakeLists.txt" % (self.source_folder, self.version),
                     "project (LibreSSL C ASM)",
                     """project (LibreSSL C ASM)
-                    include_directories(BEFORE "ios/include") """)
+                    include_directories(BEFORE "../ios/include") """)
+
+        tools.replace_in_file("%s/libressl-%s/CMakeLists.txt" % (self.source_folder, self.version),
+                    "-Wall",
+                    "-Wall -Wno-implicit-function-declaration")
 
         cmake.definitions["LIBRESSL_APPS"] = "OFF"
         cmake.definitions["LIBRESSL_TESTS"] = "OFF"
