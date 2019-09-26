@@ -68,7 +68,7 @@ class LibreSSLConan(ConanFile):
 
         # define all architectures for ios fat library
         if "arm" in self.settings.arch:
-            variants = ["armv7", "armv7s", "armv8"]
+            variants = ["armv7", "armv7s", "armv8", "armv8.3"]
 
         # apply build config for all defined architectures
         if len(variants) > 0:
