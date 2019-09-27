@@ -52,6 +52,7 @@ class LibreSSLConan(ConanFile):
     def applyCmakeSettingsForiOS(self, cmake):
         ios_toolchain = "cmake-modules/Toolchains/ios.toolchain.cmake"
         cmake.definitions["CMAKE_TOOLCHAIN_FILE"] = ios_toolchain
+        cmake.definitions["DEPLOYMENT_TARGET"] = "10.0"
         variants = []
         
         tools.replace_in_file("%s/libressl-%s/CMakeLists.txt" % (self.source_folder, self.version),
@@ -65,8 +66,12 @@ class LibreSSLConan(ConanFile):
 
         cmake.definitions["LIBRESSL_APPS"] = "OFF"
         cmake.definitions["LIBRESSL_TESTS"] = "OFF"
-        if self.settings.arch == "x86" or self.settings.arch == "x86_64":
+        if self.settings.arch == "x86":
             cmake.definitions["IOS_PLATFORM"] = "SIMULATOR"
+            cmake.definitions["ENABLE_ASM"] = "OFF"
+        elif self.settings.arch == "x86_64":
+            cmake.definitions["IOS_PLATFORM"] = "SIMULATOR64"
+            cmake.definitions["ENABLE_ASM"] = "OFF"
         else:
             cmake.definitions["IOS_PLATFORM"] = "OS"
 
@@ -82,9 +87,9 @@ class LibreSSLConan(ConanFile):
                     archs = tools.to_apple_arch(variants[i])
                 else:
                     archs += ";" + tools.to_apple_arch(variants[i])
-            cmake.definitions["CMAKE_OSX_ARCHITECTURES"] = archs
+            cmake.definitions["ARCHS"] = archs
         else:
-            cmake.definitions["CMAKE_OSX_ARCHITECTURES"] = tools.to_apple_arch(self.settings.arch)
+            cmake.definitions["ARCHS"] = tools.to_apple_arch(self.settings.arch)
     
     def applyCmakeSettingsFormacOS(self, cmake):
         cmake.definitions["CMAKE_OSX_ARCHITECTURES"] = tools.to_apple_arch(self.settings.arch)
