@@ -60,9 +60,19 @@ class LibreSSLConan(ConanFile):
                     """project (LibreSSL C ASM)
                     include_directories(BEFORE "../ios/include") """)
 
-        tools.replace_in_file("%s/libressl-%s/CMakeLists.txt" % (self.source_folder, self.version),
-                    "-Wall",
-                    "-Wall -Wno-implicit-function-declaration")
+        # on iOS SDK 13+ we have to remove some checks
+        if tools.Version(self.settings.os.version) >= 13.0:
+            tools.replace_in_file("%s/libressl-%s/CMakeLists.txt" % (self.source_folder, self.version),
+                        "check_function_exists(reallocarray", "#check_function_exists(reallocarray")
+
+            tools.replace_in_file("%s/libressl-%s/CMakeLists.txt" % (self.source_folder, self.version),
+                        "check_function_exists(explicit_bzero", "#check_function_exists(explicit_bzero")
+
+            tools.replace_in_file("%s/libressl-%s/CMakeLists.txt" % (self.source_folder, self.version),
+                        "check_function_exists(syslog_r", "#check_function_exists(syslog_r")
+
+            tools.replace_in_file("%s/libressl-%s/CMakeLists.txt" % (self.source_folder, self.version),
+                        "check_function_exists(timingsafe_memcmp", "#check_function_exists(timingsafe_memcmp")
 
         cmake.definitions["LIBRESSL_APPS"] = "OFF"
         cmake.definitions["LIBRESSL_TESTS"] = "OFF"
