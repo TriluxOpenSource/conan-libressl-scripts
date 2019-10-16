@@ -1,0 +1,26 @@
+name: C/C++ CI
+
+env:
+  BINTRAY_USER: manromen
+  CONAN_REPOSITORY: https://api.bintray.com/conan/manromen/rgpaul
+  CONAN_REPOSITORY_NAME: rgpaul
+  CONAN_USER: rgpaul
+  CONAN_CHANNEL: stable
+  LIBRARY_VERSION: 2.9.2
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  # build for ios release
+  ios_release:
+    runs-on: macOS-10.14
+    env:
+      GITHUB_OS_NAME: macos
+      BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
+    steps:
+    - uses: actions/checkout@master
+    - name: install conan
+      run: ${GITHUB_WORKSPACE}/.github/scripts/conan-setup.sh
