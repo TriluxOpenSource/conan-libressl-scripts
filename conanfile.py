@@ -3,7 +3,6 @@ import os
 
 class LibreSSLConan(ConanFile):
     name = "libressl"
-    version = "2.9.2"
     author = "Ralph-Gordon Paul (gordon@rgpaul.com)"
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False], "android_ndk": "ANY", "android_stl_type":["c++_static", "c++_shared"]}
