@@ -30,8 +30,9 @@ jobs:
     #     sudo apt install python3-dev
     - name: test
       run: echo "path ${ANDROID_SDK_ROOT}"
-    - name: install conan
-      run: ${GITHUB_WORKSPACE}/.github/scripts/conan-setup.sh
+    - name: install conan and create package
+      run: |
+        ${GITHUB_WORKSPACE}/.github/scripts/conan-setup.sh
     - name: create conan packages
       run: ${GITHUB_WORKSPACE}/.github/scripts/build-android.sh
 

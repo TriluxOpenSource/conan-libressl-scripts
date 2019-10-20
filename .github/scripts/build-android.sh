@@ -20,6 +20,8 @@
 
 set -e
 
+source ~/.profile
+
 #=======================================================================================================================
 # settings
 
@@ -32,6 +34,7 @@ declare STL_TYPE=c++_static
 declare ANDROID_NDK_PATH=$ANDROID_SDK_ROOT/ndk-bundle
 
 echo "using NDK Path: ${ANDROID_NDK_PATH}"
+export ANDROID_NDK_PATH=${ANDROID_NDK_PATH}
 
 #=======================================================================================================================
 
