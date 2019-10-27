@@ -20,6 +20,8 @@
 
 set -e
 
+source ~/.profile
+
 # login to conan bintray
 conan user -p "${BINTRAY_KEY}" -r "${CONAN_REPOSITORY_NAME}" "${BINTRAY_USER}"
 
