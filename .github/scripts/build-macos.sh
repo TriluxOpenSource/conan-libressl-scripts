@@ -20,12 +20,8 @@
 
 set -e
 
-if [ "${GITHUB_OS_NAME}" == "linux" ]; then
-    source ~/.profile
-fi
+export MACOS_SDK_VERSION=$(xcodebuild -showsdks | grep " macosx" | awk '{print $4}' | sed 's/[^0-9,\.]*//g');
+echo "macOS SDK ${MACOS_SDK_VERSION}";
 
-# login to conan bintray
-conan user -p "${BINTRAY_KEY}" -r "${CONAN_REPOSITORY_NAME}" "${BINTRAY_USER}"
-
-# upload all related packages
-conan upload "*@${CONAN_USER}/${CONAN_CHANNEL}" -r "${CONAN_REPOSITORY_NAME}" --all --confirm
+conan create . libressl/${LIBRARY_VERSION}@${CONAN_USER}/${CONAN_CHANNEL} -s os=Macos -s os.version=${MACOS_SDK_VERSION} -s arch=x86_64 -s build_type=Release -o shared=False;
+conan create . libressl/${LIBRARY_VERSION}@${CONAN_USER}/${CONAN_CHANNEL} -s os=Macos -s os.version=${MACOS_SDK_VERSION} -s arch=x86_64 -s build_type=Debug -o shared=False;
