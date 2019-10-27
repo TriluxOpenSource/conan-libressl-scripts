@@ -103,6 +103,18 @@ class LibreSSLConan(ConanFile):
     def applyCmakeSettingsFormacOS(self, cmake):
         cmake.definitions["CMAKE_OSX_ARCHITECTURES"] = tools.to_apple_arch(self.settings.arch)
 
+    def applyCmakeSettingsForWindows(self, cmake):
+        cmake.definitions["CMAKE_BUILD_TYPE"] = self.settings.build_type
+        if self.settings.compiler == "Visual Studio":
+            # check that runtime flags and build_type correspond (consistency check)
+            if "d" not in self.settings.compiler.runtime and self.settings.build_type == "Debug":
+                raise Exception("Compiling for Debug mode but compiler runtime does not contain 'd' flag.")
+
+            if self.settings.build_type == "Debug":
+                cmake.definitions["CMAKE_CXX_FLAGS_DEBUG"] = "/%s" % self.settings.compiler.runtime
+            elif self.settings.build_type == "Release":
+                cmake.definitions["CMAKE_CXX_FLAGS_RELEASE"] = "/%s" % self.settings.compiler.runtime
+
     def package(self):
         self.copy("*", dst="include", src='include')
         self.copy("*.lib", dst="lib", src='lib', keep_path=False)

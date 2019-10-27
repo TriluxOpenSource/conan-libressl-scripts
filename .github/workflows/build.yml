@@ -14,62 +14,83 @@ on:
 
 jobs:
   # build for android
-  build_android:
-    runs-on: ubuntu-18.04
-    env:
-      GITHUB_OS_NAME: linux
-      BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
-      LIBRARY_VERSION: 2.9.2
-    steps:
-    - uses: actions/checkout@master
-      with:
-        submodules: true
-    # - name: update system
-    #   run: |
-    #     sudo apt update
-    #     sudo apt install python3-dev
-    - name: install conan
-      run: ${GITHUB_WORKSPACE}/.github/scripts/conan-setup.sh
-    - name: create conan packages
-      run: ${GITHUB_WORKSPACE}/.github/scripts/build-android.sh
-    - name: deploy conan packages
-      run: ${GITHUB_WORKSPACE}/.github/scripts/conan-deploy.sh
+#   build_android:
+#     runs-on: ubuntu-18.04
+#     env:
+#       GITHUB_OS_NAME: linux
+#       BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
+#       LIBRARY_VERSION: 2.9.2
+#     steps:
+#     - uses: actions/checkout@master
+#       with:
+#         submodules: true
+#     # - name: update system
+#     #   run: |
+#     #     sudo apt update
+#     #     sudo apt install python3-dev
+#     - name: install and setup conan
+#       run: ${GITHUB_WORKSPACE}/.github/scripts/conan-setup.sh
+#     - name: create conan packages
+#       run: ${GITHUB_WORKSPACE}/.github/scripts/build-android.sh
+#     - name: deploy conan packages
+#       run: ${GITHUB_WORKSPACE}/.github/scripts/conan-deploy.sh
 
-  # build for ios
-  build_ios:
-    runs-on: macOS-10.14
-    env:
-      GITHUB_OS_NAME: macos
-      DEVELOPER_DIR: /Applications/Xcode_11.1.app/Contents/Developer
-      BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
-      LIBRARY_VERSION: 2.9.2
-    steps:
-    - uses: actions/checkout@master
-      with:
-        submodules: true
-#        ref: ${{ GITHUB_REF }}
-    - name: install conan
-      run: ${GITHUB_WORKSPACE}/.github/scripts/conan-setup.sh
-    - name: create conan packages
-      run: ${GITHUB_WORKSPACE}/.github/scripts/build-ios.sh
-    - name: deploy conan packages
-      run: ${GITHUB_WORKSPACE}/.github/scripts/conan-deploy.sh
+#   # build for ios
+#   build_ios:
+#     runs-on: macOS-10.14
+#     env:
+#       GITHUB_OS_NAME: macos
+#       DEVELOPER_DIR: /Applications/Xcode_11.1.app/Contents/Developer
+#       BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
+#       LIBRARY_VERSION: 2.9.2
+#     steps:
+#     - uses: actions/checkout@master
+#       with:
+#         submodules: true
+# #        ref: ${{ GITHUB_REF }}
+#     - name: install and setup conan
+#       run: ${GITHUB_WORKSPACE}/.github/scripts/conan-setup.sh
+#     - name: create conan packages
+#       run: ${GITHUB_WORKSPACE}/.github/scripts/build-ios.sh
+#     - name: deploy conan packages
+#       run: ${GITHUB_WORKSPACE}/.github/scripts/conan-deploy.sh
 
-  # build for macOS
-  build_macos:
-    runs-on: macOS-10.14
+#   # build for macOS
+#   build_macos:
+#     runs-on: macOS-10.14
+#     env:
+#       GITHUB_OS_NAME: macos
+#       DEVELOPER_DIR: /Applications/Xcode_11.1.app/Contents/Developer
+#       BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
+#       LIBRARY_VERSION: 2.9.2
+#     steps:
+#     - uses: actions/checkout@master
+#       with:
+#         submodules: true
+#     - name: install and setup conan
+#       run: ${GITHUB_WORKSPACE}/.github/scripts/conan-setup.sh
+#     - name: create conan packages
+#       run: ${GITHUB_WORKSPACE}/.github/scripts/build-macos.sh
+#     - name: deploy conan packages
+#       run: ${GITHUB_WORKSPACE}/.github/scripts/conan-deploy.sh
+
+  # build for windows
+  build_windows:
+    runs-on: windows-2019
     env:
-      GITHUB_OS_NAME: macos
-      DEVELOPER_DIR: /Applications/Xcode_11.1.app/Contents/Developer
+      GITHUB_OS_NAME: windows
       BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
       LIBRARY_VERSION: 2.9.2
     steps:
     - uses: actions/checkout@master
       with:
         submodules: true
-    - name: install conan
-      run: ${GITHUB_WORKSPACE}/.github/scripts/conan-setup.sh
+    - name: install and setup conan
+      run: powershell -File ${env:GITHUB_WORKSPACE}\.github\scripts\conan-setup.ps1
+      shell: powershell
     - name: create conan packages
-      run: ${GITHUB_WORKSPACE}/.github/scripts/build-macos.sh
+      run: powershell -File ${env:GITHUB_WORKSPACE}\.github\scripts\build-windows.ps1
+      shell: powershell
     - name: deploy conan packages
       run: ${GITHUB_WORKSPACE}/.github/scripts/conan-deploy.sh
+      shell: bash
