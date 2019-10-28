@@ -30,7 +30,7 @@ function createConanPackage($arch, $build_type)
         $runtime = "MTd"
     }
 
-    conan create . libressl/${LIBRARY_VERSION}@${CONAN_USER}/${CONAN_CHANNEL} -s os=Windows `
+    conan create . libressl/${env:LIBRARY_VERSION}@${env:CONAN_USER}/${env:CONAN_CHANNEL} -s os=Windows `
         -s compiler="Visual Studio" -s compiler.runtime=$runtime -s arch=${arch} -s build_type=${build_type} -o shared=False
 }
 

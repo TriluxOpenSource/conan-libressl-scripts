@@ -92,5 +92,5 @@ jobs:
       run: powershell -File ${env:GITHUB_WORKSPACE}\.github\scripts\build-windows.ps1
       shell: powershell
     - name: deploy conan packages
-      run: ${GITHUB_WORKSPACE}/.github/scripts/conan-deploy.sh
-      shell: bash
+      run: powershell -File ${env:GITHUB_WORKSPACE}\.github\scripts\conan-deploy.ps1
+      shell: powershell

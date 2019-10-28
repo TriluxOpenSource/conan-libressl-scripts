@@ -18,19 +18,8 @@
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 # ----------------------------------------------------------------------------------------------------------------------
 
-# Install python and conan
-choco install --limitoutput --no-progress python3 pip
-refreshenv
-#choco install --limitoutput conan
-pip install conan
+# login to conan bintray
+& conan user -p "${env:BINTRAY_KEY}" -r "${env:CONAN_REPOSITORY_NAME}" "${env:BINTRAY_USER}"
 
-Push-Location ${PSScriptRoot}
-
-# Add conan repository and apply conan config
-& conan remote add ${env:CONAN_REPOSITORY_NAME} ${env:CONAN_REPOSITORY}
-& conan config install ./conan/config.zip
-
-# login to conan
-& conan user -p "${env:BINTRAY_KEY}" -r ${env:CONAN_REPOSITORY_NAME} ${env:BINTRAY_USER}
-
-Pop-Location
+# upload all related packages
+& conan upload "*@${env:CONAN_USER}/${env:CONAN_CHANNEL}" -r "${env:CONAN_REPOSITORY_NAME}" --all --confirm
