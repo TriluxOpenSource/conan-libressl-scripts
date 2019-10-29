@@ -55,6 +55,24 @@ jobs:
     - name: deploy conan packages
       run: ${GITHUB_WORKSPACE}/.github/scripts/conan-deploy.sh
 
+  # build for linux
+  build_linux:
+    runs-on: ubuntu-18.04
+    env:
+      GITHUB_OS_NAME: linux
+      BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
+      LIBRARY_VERSION: 2.9.2
+    steps:
+    - uses: actions/checkout@master
+      with:
+        submodules: true
+    - name: install and setup conan
+      run: ${GITHUB_WORKSPACE}/.github/scripts/conan-setup.sh
+    - name: create conan packages
+      run: ${GITHUB_WORKSPACE}/.github/scripts/build-linux.sh
+    - name: deploy conan packages
+      run: ${GITHUB_WORKSPACE}/.github/scripts/conan-deploy.sh
+
   # build for macOS
   build_macos:
     runs-on: macOS-10.14
