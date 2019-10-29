@@ -14,8 +14,10 @@ The environmental `ANDROID_NDK_PATH` must be set to the path of the android ndk.
 
 To create a package for Android you can run the conan command like this:
 
-`export ANDROID_NDK_PATH='/opt/android-ndks/android-ndk-r20'`
-`conan create . libressl/2.9.2@rgpaul/stable -s os=Android -s os.api_level=21 -s compiler=clang -s compiler.version=8.0 -s compiler.libcxx=libc++ -s arch=x86_64 -s build_type=Release -o android_ndk=r20 -o android_stl_type=c++_static`
+```
+export ANDROID_NDK_PATH='/opt/android-ndks/android-ndk-r20'
+conan create . libressl/2.9.2@rgpaul/stable -s os=Android -s os.api_level=21 -s compiler=clang -s compiler.version=8.0 -s compiler.libcxx=libc++ -s arch=x86_64 -s build_type=Release -o android_ndk=r20 -o android_stl_type=c++_static
+```
 
 ### Requirements
 
@@ -27,7 +29,9 @@ To create a package for Android you can run the conan command like this:
 
 To create a package for iOS you can run the conan command like this:
 
-`conan create . libressl/2.9.2@rgpaul/stable -s os=iOS -s os.version=13.0 -s arch=armv8 -s build_type=Release -o shared=False`
+```
+conan create . libressl/2.9.2@rgpaul/stable -s os=iOS -s os.version=13.0 -s arch=armv8 -s build_type=Release -o shared=False
+```
 
 ### Requirements
 
@@ -35,11 +39,27 @@ To create a package for iOS you can run the conan command like this:
 * [Conan](https://conan.io/)
 * [Xcode](https://developer.apple.com/xcode/)
 
+## Linux - Debian
+
+To create a package for Linux you can run the conan command like this:
+
+```
+conan create . libressl/2.9.2@rgpaul/stable -s os=Linux -s arch=x86_64 -s build_type=Release -o shared=False
+```
+
+### Requirements
+
+* [CMake](https://cmake.org/)
+* [Conan](https://conan.io/)
+* build-essential, make, curl, git, unzip and zip (`apt-get install build-essential cmake curl git unzip zip`)
+
 ## macOS
 
 To create a package for macOS you can run the conan command like this:
 
-`conan create . libressl/2.9.2@rgpaul/stable -s os=Macos -s os.version=10.15 -s arch=x86_64 -s build_type=Release -o shared=False`
+```
+conan create . libressl/2.9.2@rgpaul/stable -s os=Macos -s os.version=10.15 -s arch=x86_64 -s build_type=Release -o shared=False
+```
 
 ### Requirements
 
@@ -51,7 +71,9 @@ To create a package for macOS you can run the conan command like this:
 
 To create a package for Windows 10 you can run the conan command like this:
 
-`conan create . libressl/2.9.2@rgpaul/stable -s os=Windows -s compiler="Visual Studio" -s compiler.runtime=MT -s arch=x86_64 -s build_type=Release -o shared=False`
+```
+conan create . libressl/2.9.2@rgpaul/stable -s os=Windows -s compiler="Visual Studio" -s compiler.runtime=MT -s arch=x86_64 -s build_type=Release -o shared=False
+```
 
 ### Requirements
 
