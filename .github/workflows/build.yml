@@ -8,9 +8,8 @@ env:
   CONAN_CHANNEL: stable
 
 on:
-  push:
-    branches:
-      - master
+  create:
+    ref_type: tag
 
 jobs:
   # build for android
@@ -19,15 +18,13 @@ jobs:
     env:
       GITHUB_OS_NAME: linux
       BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
-      LIBRARY_VERSION: 2.9.2
     steps:
     - uses: actions/checkout@master
       with:
         submodules: true
-    # - name: update system
-    #   run: |
-    #     sudo apt update
-    #     sudo apt install python3-dev
+        ref: ${{ github.sha }}
+    - name: get version from tag
+      run: echo ::set-env name=LIBRARY_VERSION::$(echo ${GITHUB_REF:10})
     - name: install and setup conan
       run: ${GITHUB_WORKSPACE}/.github/scripts/conan-setup.sh
     - name: create conan packages
@@ -42,12 +39,13 @@ jobs:
       GITHUB_OS_NAME: macos
       DEVELOPER_DIR: /Applications/Xcode_11.1.app/Contents/Developer
       BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
-      LIBRARY_VERSION: 2.9.2
     steps:
     - uses: actions/checkout@master
       with:
         submodules: true
-#        ref: ${{ GITHUB_REF }}
+        ref: ${{ github.sha }}
+    - name: get version from tag
+      run: echo ::set-env name=LIBRARY_VERSION::$(echo ${GITHUB_REF:10})
     - name: install and setup conan
       run: ${GITHUB_WORKSPACE}/.github/scripts/conan-setup.sh
     - name: create conan packages
@@ -61,11 +59,13 @@ jobs:
     env:
       GITHUB_OS_NAME: linux
       BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
-      LIBRARY_VERSION: 2.9.2
     steps:
     - uses: actions/checkout@master
       with:
         submodules: true
+        ref: ${{ github.sha }}
+    - name: get version from tag
+      run: echo ::set-env name=LIBRARY_VERSION::$(echo ${GITHUB_REF:10})
     - name: install and setup conan
       run: ${GITHUB_WORKSPACE}/.github/scripts/conan-setup.sh
     - name: create conan packages
@@ -80,11 +80,13 @@ jobs:
       GITHUB_OS_NAME: macos
       DEVELOPER_DIR: /Applications/Xcode_11.1.app/Contents/Developer
       BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
-      LIBRARY_VERSION: 2.9.2
     steps:
     - uses: actions/checkout@master
       with:
         submodules: true
+        ref: ${{ github.sha }}
+    - name: get version from tag
+      run: echo ::set-env name=LIBRARY_VERSION::$(echo ${GITHUB_REF:10})
     - name: install and setup conan
       run: ${GITHUB_WORKSPACE}/.github/scripts/conan-setup.sh
     - name: create conan packages
@@ -98,11 +100,14 @@ jobs:
     env:
       GITHUB_OS_NAME: windows
       BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
-      LIBRARY_VERSION: 2.9.2
     steps:
     - uses: actions/checkout@master
       with:
         submodules: true
+        ref: ${{ github.sha }}
+    - name: get version from tag
+      run: echo ::set-env name=LIBRARY_VERSION::$(echo ${GITHUB_REF:10})
+      shell: bash
     - name: install and setup conan
       run: powershell -File ${env:GITHUB_WORKSPACE}\.github\scripts\conan-setup.ps1
       shell: powershell
