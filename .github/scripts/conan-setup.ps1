@@ -25,7 +25,7 @@ Push-Location ${PSScriptRoot}
 
 # add conan repository and apply conan config
 & conan remote add ${env:CONAN_REPOSITORY_NAME} ${env:CONAN_REPOSITORY}
-& conan config install ./conan/config.zip
+& conan config install ../conan/config.zip
 
 # login to conan
 & conan user -p "${env:BINTRAY_KEY}" -r ${env:CONAN_REPOSITORY_NAME} ${env:BINTRAY_USER}

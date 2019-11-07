@@ -40,7 +40,7 @@ fi
 
 # Add conan repository and apply conan config
 conan remote add ${CONAN_REPOSITORY_NAME} ${CONAN_REPOSITORY}
-conan config install ${ABSOLUTE_DIR}/conan/config.zip
+conan config install ${ABSOLUTE_DIR}/../conan/config.zip
 
 # login to conan
 conan user -p "${BINTRAY_KEY}" -r ${CONAN_REPOSITORY_NAME} ${BINTRAY_USER}
