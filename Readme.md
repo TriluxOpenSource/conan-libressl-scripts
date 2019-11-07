@@ -1,10 +1,10 @@
 # Conan LibreSSL
 
-![GitHub Actions Android status | rgpaul/conan-libressl-scripts](https://github.com/rgpaul/conan-libressl-scripts/workflows/Android/badge.svg)
-![GitHub Actions iOS status | rgpaul/conan-libressl-scripts](https://github.com/rgpaul/conan-libressl-scripts/workflows/iOS/badge.svg)
-![GitHub Actions Linux status | rgpaul/conan-libressl-scripts](https://github.com/rgpaul/conan-libressl-scripts/workflows/Linux/badge.svg)
-![GitHub Actions macOS status | rgpaul/conan-libressl-scripts](https://github.com/rgpaul/conan-libressl-scripts/workflows/macOS/badge.svg)
-![GitHub Actions Windows status | rgpaul/conan-libressl-scripts](https://github.com/rgpaul/conan-libressl-scripts/workflows/Windows/badge.svg)
+![Android status](https://github.com/rgpaul/conan-libressl-scripts/workflows/Android/badge.svg)
+![iOS status](https://github.com/rgpaul/conan-libressl-scripts/workflows/iOS/badge.svg)
+![Linux status](https://github.com/rgpaul/conan-libressl-scripts/workflows/Linux/badge.svg)
+![macOS status](https://github.com/rgpaul/conan-libressl-scripts/workflows/macOS/badge.svg)
+![Windows status](https://github.com/rgpaul/conan-libressl-scripts/workflows/Windows/badge.svg)
 
 This repository contains the conan receipe that is used to build the LibreSSL packages at [rgpaul bintray](https://bintray.com/manromen/rgpaul).
 
