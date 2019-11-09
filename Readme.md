@@ -6,7 +6,7 @@
 ![macOS status](https://github.com/rgpaul/conan-libressl-scripts/workflows/macOS/badge.svg)
 ![Windows status](https://github.com/rgpaul/conan-libressl-scripts/workflows/Windows/badge.svg)
 
-This repository contains the conan receipe that is used to build the LibreSSL packages at [rgpaul bintray](https://bintray.com/manromen/rgpaul).
+This repository contains a conan receipe that can be used to build LibreSSL packages.
 
 For Infos about LibreSSL please visit [libressl.org](https://www.libressl.org/).  
 The library is licensed under the [ISC License](https://tldrlegal.com/license/-isc-license).  
