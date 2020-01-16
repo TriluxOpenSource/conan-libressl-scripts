@@ -1,8 +1,8 @@
-![Android status](https://github.com/rgpaul/conan-libressl-scripts/workflows/Android/badge.svg)
-![iOS status](https://github.com/rgpaul/conan-libressl-scripts/workflows/iOS/badge.svg)
-![Linux status](https://github.com/rgpaul/conan-libressl-scripts/workflows/Linux/badge.svg)
-![macOS status](https://github.com/rgpaul/conan-libressl-scripts/workflows/macOS/badge.svg)
-![Windows status](https://github.com/rgpaul/conan-libressl-scripts/workflows/Windows/badge.svg)
+![Android status](https://github.com/TriluxOpenSource/conan-libressl-scripts/workflows/Android/badge.svg)
+![iOS status](https://github.com/TriluxOpenSource/conan-libressl-scripts/workflows/iOS/badge.svg)
+![Linux status](https://github.com/TriluxOpenSource/conan-libressl-scripts/workflows/Linux/badge.svg)
+![macOS status](https://github.com/TriluxOpenSource/conan-libressl-scripts/workflows/macOS/badge.svg)
+![Windows status](https://github.com/TriluxOpenSource/conan-libressl-scripts/workflows/Windows/badge.svg)
 
 # Conan LibreSSL
 
