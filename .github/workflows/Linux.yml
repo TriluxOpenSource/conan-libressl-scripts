@@ -22,7 +22,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
       with:
-        submodules: true
+        submodules: recursive
         ref: ${{ github.sha }}
     - name: fetch all tags and all history for all tags and branches
       run: |
@@ -45,7 +45,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
       with:
-        submodules: true
+        submodules: recursive
         ref: ${{ github.sha }}
     - name: fetch all tags and all history for all tags and branches
       run: |
