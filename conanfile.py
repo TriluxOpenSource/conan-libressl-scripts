@@ -10,7 +10,7 @@ class LibreSSLConan(ConanFile):
     description = "LibreSSL is a version of the TLS/crypto stack forked from OpenSSL in 2014, with goals of modernizing the codebase, improving security, and applying best practice development processes."
     url = "https://github.com/RGPaul/conan-libressl-scripts"
     license = "ISC"
-    exports_sources = "cmake-modules/*", "ios/*"
+    exports_sources = "ios/*"
 
     # download sources
     def source(self):
@@ -52,9 +52,11 @@ class LibreSSLConan(ConanFile):
         cmake.definitions["LIBRESSL_TESTS"] = "OFF"
 
     def applyCmakeSettingsForiOS(self, cmake):
-        ios_toolchain = "cmake-modules/Toolchains/ios.toolchain.cmake"
-        cmake.definitions["CMAKE_TOOLCHAIN_FILE"] = ios_toolchain
+        cmake.definitions["CMAKE_SYSTEM_NAME"] = "iOS"
         cmake.definitions["DEPLOYMENT_TARGET"] = "10.0"
+        cmake.definitions["CMAKE_OSX_DEPLOYMENT_TARGET"] = "10.0"
+        cmake.definitions["CMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH"] = "NO"
+        cmake.definitions["CMAKE_IOS_INSTALL_COMBINED"] = "YES"
         
         tools.replace_in_file("%s/libressl-%s/CMakeLists.txt" % (self.source_folder, self.version),
                     "project (LibreSSL C ASM)",
@@ -78,20 +80,11 @@ class LibreSSLConan(ConanFile):
         cmake.definitions["LIBRESSL_APPS"] = "OFF"
         cmake.definitions["LIBRESSL_TESTS"] = "OFF"
 
-        if self.settings.arch == "x86":
-            cmake.definitions["PLATFORM"] = "SIMULATOR"
-            cmake.definitions["ENABLE_ASM"] = "OFF"
-        elif self.settings.arch == "x86_64":
-            cmake.definitions["PLATFORM"] = "SIMULATOR64"
-            cmake.definitions["ENABLE_ASM"] = "OFF"
-        else:
-            cmake.definitions["PLATFORM"] = "OS"
-
         # define all architectures for ios fat library
         if "arm" in self.settings.arch:
-            cmake.definitions["ARCHS"] = "armv7;armv7s;arm64;arm64e"
+            cmake.definitions["CMAKE_OSX_ARCHITECTURES"] = "armv7;armv7s;arm64;arm64e"
         else:
-            cmake.definitions["ARCHS"] = tools.to_apple_arch(self.settings.arch)
+            cmake.definitions["CMAKE_OSX_ARCHITECTURES"] = tools.to_apple_arch(self.settings.arch)
     
     def applyCmakeSettingsFormacOS(self, cmake):
         cmake.definitions["CMAKE_OSX_ARCHITECTURES"] = tools.to_apple_arch(self.settings.arch)
